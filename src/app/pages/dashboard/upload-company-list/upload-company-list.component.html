@@ -1,0 +1,187 @@
+<app-header></app-header>
+<app-sidebar (setSideBarEvent)="setSideBar($event)"></app-sidebar>
+<div>
+   
+    <div class="mid-panel mid-panel-left" id="side_scroll_id">
+
+        <div id="browse" class="tab-pane show in active">
+            <div class="button-section my-1">
+            </div>
+            <form [formGroup]="dashFilterForm" autocomplete="off">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-md-9 col-xl-9">
+                            <div class="row form-group">
+
+                               
+
+
+                                <div>
+                                    <label>
+                                        <input type="radio" name="dataMode" value="all" (change)="onDataModeChange('all')" [checked]="true"/> All
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="dataMode" value="bulk" (change)="onDataModeChange('bulk')" /> Bulk
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="dataMode" value="single" (change)="onDataModeChange('single')" /> Single
+                                    </label>
+                                    
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="token_no">Token No</label>
+                                    <div class="input-group">
+                                        <input type="text" id="token_no" name="token_no" class="form-control"  list ="tokenList" formControlName="token_no" placeholder="Token No" style="width:100%;" />
+                                        <datalist id="tokenList"></datalist>
+                                    </div>
+                                </div> 
+
+
+                                
+                                <div class="col-md-6">
+                                    <label for="EXCEL_NAME">Excel Name</label>
+                                    <div class="input-group">
+                                        <input type="text" id="EXCEL_NAME" name="EXCEL_NAME" class="form-control"  list ="excelList" formControlName="EXCEL_NAME" placeholder="Excel Name" style="width:100%;" />
+                                        <datalist id="excelList"></datalist>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="IN_COMPLETE_EXCEL">Incomplete Files</label>
+                                    <div class="input-group">
+                                        <input type="text" id="IN_C_EXCEL_NAME" name="IN_C_EXCEL_NAME" class="form-control"  list ="in_c_excelList" formControlName="EXCEL_NAME" placeholder="Incomplete File" style="width:100%;" />
+                                        <datalist id="in_c_excelList"></datalist>
+                                    </div>
+                                </div>
+
+
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xl-3 pl-0 d-flex justify-content-end align-items-center">
+                            <button type="button" class="form-btn active-btn mt-0 mb-0" (click)="onSubmit();"><i
+                                    class="fas fa-backward me-1"></i>
+                                Search</button>
+                            <button type="button" class="form-btn active-btn mt-0 mb-0 me-1" (click)="reset();"> Reset
+                                <i class="fas fa-forward ms-1"></i></button>
+                               
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="filterFlag" id="filterFlag">
+            </form>
+        </div>
+
+        <div *ngIf="loading" class="loading-indicator">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+        
+        <div>
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="seq-no header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Sr. No.
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="deducteeRef header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Token No.
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Excel Name
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    User Code
+
+                                </div>
+
+                            </div>
+                        </th>
+
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Redirect
+
+                                </div>
+
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                
+               <tbody>
+                    <tr *ngFor="let company of companyDetailsList; index as i">
+                        <td>
+                            <div class="data-height upper-text">{{ company.SLNO }}</div>
+                        </td>
+                        <td>
+                            <div class="data-height upper-text">{{ company.TOKEN_NO }}</div>
+                        </td>
+                        <td>
+                            <div class="data-height upper-text">{{ company.EXCEL_NAME }}</div>
+                        </td>
+                        <td>
+                            <div class="data-height upper-text">{{ company.USER_CODE }}</div>
+                        </td>
+                        <td>
+                             <button type="button" id='process_btn' class="form-btn active-btn" (click)="onProcessButtonClick(company)" 
+                                    [ngClass]="{'Incomplete Process': company.FLAG === 'N', 'View': company.FLAG !== 'N'}">
+                                    {{ company.FLAG === 'N' ? 'Incomplete Process' : 'View' }}
+                            </button>
+
+                            <button type="button" class="form-btn active-btn" (click)="delete_record(company.TOKEN_NO)">Delete</button>
+                            <button type="button"  id = 'download_btn'class="form-btn active-btn" (click)="download_excel(company.TOKEN_NO)">Download</button>  
+                            
+                        </td>
+                    </tr>
+                    <input type="hidden" id="no_del_count" value="1" />
+                </tbody> 
+                
+            </table>
+        </div>
+
+        <div class="row align-items-center mt-1 mb-1">
+            <div class="col-md-6  text-start">
+                <div class="row page-count">
+
+                    <div class="col-md-3">
+                        <label id="counttableid"></label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-end">
+                <button type="button" class="form-btn active-btn mt-0 mb-0" (click)="pagiBack()"><i
+                        class="fas fa-backward me-1"></i>
+                    Previous</button>
+                <button type="button" class="form-btn active-btn mt-0 mb-0 me-1" (click)="pagiForward()"> Next
+                    <i class="fas fa-forward ms-1"></i></button>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    

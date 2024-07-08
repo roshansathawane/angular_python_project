@@ -1,0 +1,119 @@
+/* Style for the main container */
+.mid-panel {
+  &.mid-panel-left {
+    // Add padding and margin as needed
+    padding: 20px;
+    margin: 10px;
+
+    // Add border and border radius for a card-like appearance
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+    // Add box shadow for depth
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+    // Adjust background color
+    background-color: #f9f9f9;
+
+    // Set max width and center align
+    max-width: 1200px;
+    margin: 0 auto;
+
+    // Hide vertical scrollbar and allow content overflow
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer */
+
+    &::-webkit-scrollbar {
+      display: none; /* WebKit */
+    }
+
+    .tab-pane {
+      &.show {
+        &.active {
+          // Adjust padding and margin as needed
+          padding: 20px;
+          margin: 10px;
+
+          // Add border and border radius for a card-like appearance
+          border: 1px solid #ddd;
+          border-radius: 5px;
+
+          // Add box shadow for depth
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+          // Adjust background color
+          background-color: #f9f9f9;
+
+          // Set max width and center align
+          max-width: 1200px;
+          margin: 0 auto;
+
+          // Hide vertical scrollbar and allow content overflow
+          overflow-y: auto;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* Internet Explorer */
+
+          &::-webkit-scrollbar {
+            display: none; /* WebKit */
+          }
+
+          .filter-section {
+            .row {
+              .form-group {
+                // Add space between form groups
+                margin-bottom: 15px;
+              }
+
+              .col-lg-6 {
+                // Set width for form controls
+                width: 50%;
+                padding: 0 10px; // Add spacing between filter inputs
+
+                // Align labels and form controls vertically
+                display: flex;
+                flex-direction: column;
+
+                // Adjust space between label and form control
+                margin-bottom: 10px;
+
+                label {
+                  font-weight: bold; // Make label bold
+                }
+              }
+            }
+          }
+
+          .form-btn {
+            // Add margin to buttons for spacing
+            margin-right: 10px;
+
+            // Adjust button color and font style
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            height: 35px;
+
+            // Adjust button hover effects
+            &:hover {
+              background-color: #0056b3;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+// ====================================
+
+.Incomplete Process {
+  background-color: default; 
+}
+
+.View {
+  background-color: rgb(156, 19, 19); 
+  color: white; 
+}

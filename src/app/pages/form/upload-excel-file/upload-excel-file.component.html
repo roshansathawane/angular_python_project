@@ -1,0 +1,106 @@
+
+<app-header></app-header>
+<app-sidebar (setSideBarEvent)="setSideBar($event)"></app-sidebar>
+
+      <div class="upload-form">
+        <form [formGroup]="excelForm" (ngSubmit)="uploadCompanyNames()">
+          <div class="form-group horizontal-form">
+            <label for="companyName">Company Name:</label>
+            <input type ="file" id="inputField" formControlName="inputField" (change)="handleFileInput($event)" />
+            <button type="submit" class="btn btn-primary">Upload</button>
+            <button type="button" class="btn btn-primary" (click)="copyCompanyDetails()">Copy</button>
+          </div>
+      
+
+          <div *ngIf="loading" class="loading-indicator">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+            <p>Work in Progress...</p>
+        </div>
+
+          <div *ngIf="companyResults.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Completed</th>
+                  <th>Total Company / Processing Company No.</th>
+                  <th>Company Name</th>
+                  <th>Company Website</th>
+                  <th>Official Website</th>
+                  <th>Company Emails</th>
+                  <th>Company Phone No.</th>
+                  <th>Zauba Website</th>
+                  <th>Zauba Email</th>
+                  <th>Zaub Address</th>
+                  <th>Zaub Director Details</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let result of companyResults">
+                  <td><input type="checkbox" [checked]="result.completed" disabled></td>
+                  <td>{{ result.total_count }} / {{ result.companyNo }}</td>
+                  <td>{{ result.companyName }}</td>
+                  <td [ngClass]="{ 'error': result.error }">{{ result.website }}</td>
+                  <td>{{ result.official_website }}</td>
+                  <td>{{ result.emails }}</td>
+                  <td>{{ result.phones }}</td>
+                  <td>{{ result.zaub_website }}</td>
+                  <td>{{ result.zaub_email }}</td>
+                  <td>{{ result.zaub_address }}</td>
+                  <td>{{ result.zaub_director_details }}</td>   
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>     
+          
+          <div *ngIf="processCompleted">
+            Process completed.
+          </div>
+
+    </form>
+  </div>
+
+
+  <div *ngIf="showSuggestionBox" class="upload-suggetion" id=" suggestion_box">
+
+    <div class="detail-option">
+      <input type="checkbox" [(ngModel)]="select_official_details" >
+      <p>Official Details</p>
+      <p>[Company Name, Website, Email, Phone No.]</p>
+    </div>
+ 
+    <div class="detail-option">
+      <input type="checkbox" [(ngModel)]="select_zauba_details" (change)="onZaubaDetailsChange()">
+      <p>Zauba Details</p>
+      <p>[Company Name, Email, Address, Director Details]</p>
+    </div>
+
+    <div class="start-button">
+      <button (click)="send_TokenNo()">Start</button>
+      <div *ngIf="error" style="color: red;">
+        <p>Please select at least one checkbox.</p>
+        </div>
+    </div>
+
+  </div>
+  
+  
+  
+
+  <div class="modal fade" id="suggestionModal" tabindex="-1" aria-labelledby="suggetionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="btn-close" (click)="closeZaubaModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>If you want Zauba website details, a new browser window will open. Please do not close this window.</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  

@@ -1,0 +1,53 @@
+<!-- <header>
+    <div class="haeding">
+        <h4 class="">V7C WMA</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-profile">
+                    <ul>
+                        <li> Login Since : 25 Nov 2023</li>
+                        <li> 04:20:30 PM</li>
+                        <li class="d-flex">  <i class="fas fa-user-circle"></i> Shashank Maheshwari </li>
+                        <li> <i class="fas fa-sign-out-alt"></i></li>
+                        <div class="logout" (click)="Logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</header> -->
+
+<header>
+    <div class="container-fluid">
+        <div class="heading">
+            <div class="row">
+                    <div class="col-md-4">
+                         <!-- <h4 class="">V7C WMA</h4> -->
+                         
+                    </div>
+                    <div class="col-md-4">
+                    <h4  class="heading text-center">{{currentPage}}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="user-profile">    
+                            <ul>
+                                
+                                <li> <i class="far fa-clock"></i>  Login Since : {{currentDate | date:'medium'}} </li>
+                                <!-- <li> <i class="fas fa-slash"></i> 04:20:30 PM <i class="fas fa-slash"></i> </li> -->
+                                <li class="d-flex" routerLink="/user-profile" matTooltip="User Profile" matTooltipClass="user-logout"> <i class="fas fa-user-circle"></i><span>{{ loginName }}</span> </li>
+                                <!-- <li> <i class="fas fa-sign-out-alt"></i></li> -->
+                                <div class="logout">
+                                    <i class="fas fa-sign-out-alt" matTooltip="Logout" matTooltipClass="user-logout"></i>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+    
+        </div>
+    </div>
+</header>

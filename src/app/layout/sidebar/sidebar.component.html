@@ -1,0 +1,85 @@
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="fas fa-bars btn-bar" id="btn" (click)="sideBarBtn()"></i>
+   
+</label>
+
+<div class="sidebar">
+    
+    <div class="sidebar-menu">
+        <a routerLink="/dashboard">
+            <div class="logo">
+                <img src="../../../assets/images/lhs-logo.png" alt="" class="img-fluid logo-img1">
+            </div>
+        </a>
+
+        <ul class="icon-name-menu">
+            <!-- Lhs Side Menu Start -->
+            <li *ngIf="this.lhs === 'T'"><a routerLink="" routerLinkActive="active"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li *ngIf="this.lhs === 'T'"><a routerLink="/uploadCompanyDash" routerLinkActive="active"><i class="fas fa-home"></i>Company Dashboard</a></li>
+            <li *ngIf="this.lhs === 'T'"><a routerLink="/uploadExcelSheet" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i>Upload Excel File</a></li>
+            <li *ngIf="this.lhs === 'T'"><a routerLink="/singleCompanyName" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i>Company Name</a></li>
+           
+              <!-- Lhs Side Menu End -->
+
+
+
+             <!-- Client Side Menu Start -->  
+            <li *ngIf="this.lhs === 'F'" >
+                <a routerLink="/uploadCompanyDash" routerLinkActive="active">
+                    <i class="fas fa-home"></i>Company Data Dashboard
+                </a>
+            </li>
+
+        
+        </ul>
+
+       
+        
+
+
+
+
+        <!-- sidebar after collapse start -->
+        <ul class="icon-menu">
+            <li class="small-logo mt-0">
+                <a routerLink="/dashboard">
+                    <img src="../../../assets/images/lhs-logo-small.png" alt="" class="img-fluid logo-img2">
+                </a>
+            </li>
+            <li matTooltip="Dashboard" matTooltipClass="custom-tooltip" matTooltipPosition="below">
+                <a routerLink="/dashboard" routerLinkActive="active">
+                    <i class="fas fa-home"></i><span>Dashboard</span>
+                </a>
+            </li>
+            <li matTooltip="Patch Generate" matTooltipClass="custom-tooltip" *ngIf="this.lhs === 'T'">
+                <a routerLink="/lhs-form-card" routerLinkActive="active">
+                    <i class="fas fa-cogs"></i><span>Patch Generate</span>
+                </a>
+            </li>
+            <li matTooltip="Patch Dashboard" matTooltipClass="custom-tooltip" *ngIf="this.lhs === 'T'">
+                <a routerLink="/lhs-dashboard-card" routerLinkActive="active">
+                    <i class="fas fa-file-import"></i> <span>Patch Dashboard</span>
+                </a>
+            </li>
+           
+            <li matTooltip="Patch Import" matTooltipClass="custom-tooltip" *ngIf="this.lhs === 'F'">
+                <a routerLink="/patch-import" routerLinkActive="active">
+                    <i class="fas fa-file-import"></i> <span>Patch Import</span>
+                </a>
+            </li>
+            <li matTooltip="Patch Dashboard" matTooltipClass="custom-tooltip" *ngIf="this.lhs === 'F'">
+                <a routerLink="/dashboard-card" routerLinkActive="active">
+                    <i class="fas fa-users"></i> <span>Patch Dashboard</span>
+                </a>
+            </li>
+        </ul>
+        <!-- sidebar after collapse end -->
+    </div>
+    <!-- new end -->
+    <div class="footer">
+        <div class="f-logo">
+            <!-- <span>Session : 00</span> -->
+        </div>
+    </div>
+</div>

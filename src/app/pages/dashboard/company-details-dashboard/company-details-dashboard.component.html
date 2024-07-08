@@ -1,0 +1,325 @@
+<app-header></app-header>
+<app-sidebar (setSideBarEvent)="setSideBar($event)"></app-sidebar>
+<div>
+
+    <div class="mid-panel mid-panel-left" id="side_scroll_id">
+
+        <div id="browse" class="tab-pane show in active">
+            <div class="button-section my-1">
+            </div>
+            <form [formGroup]="dashFilterForm" autocomplete="off">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-lg-9 col-xl-9">
+                            <div class="row form-group">
+                               
+                                <div class="col-lg-3">
+                                    <label for="COMPANY_NAME">Company Name</label>
+                                    <div class="input-group">
+                                        <input type="text" id="COMPANY_NAME" name="COMPANY_NAME" class="form-control"
+                                            formControlName="COMPANY_NAME" placeholder="COMPANY NAME" 
+                                            style="width:100%;" />
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-3">
+                                    <label for="date_time">From Date</label>
+                                    <div class="input-group">
+                                        <input type="text" id="From_date" name="From_date" class="form-control"
+                                            formControlName="From_date" placeholder="From_date" style="width:100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="date_time">To Date</label>
+                                    <div class="input-group">
+                                        <input type="text" id="to_date" name="to_date" class="form-control"
+                                            formControlName="to_date" placeholder="To_date" style="width:100%;" />
+                                    </div>
+                                </div> -->
+
+                                <div class="col-lg-3">
+                                    <label for="From_date">From Date</label>
+                                    <div class="input-group">
+                                        <input type="text" id="From_date" name="From_date" class="form-control"
+                                            formControlName="From_date" placeholder="From Date"  style="width:100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="date_time">To Date</label>
+                                    <div class="input-group">
+                                        <input type="text" id="to_date" name="to_date" class="form-control"
+                                            formControlName="to_date" placeholder="To Date"  style="width:100%;" />
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
+                       
+
+                        <div class="col-lg-3 col-xl-3 pl-0 d-flex justify-content-end align-items-center">
+                            <button type="button" class="form-btn active-btn mt-0 mb-0" (click)="onSubmit();"><i
+                                    class="fas fa-backward me-1"></i>
+                                Search</button>
+                            <button type="button" class="form-btn active-btn mt-0 mb-0 me-1" (click)="reset();"> Reset
+                                <i class="fas fa-forward ms-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="loading" class="loading-indicator">
+                    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    <p>Process In Progress...</p>
+                    <p>Do not refresh the page</p>
+                </div>
+
+                <input type="hidden" name="filterFlag" id="filterFlag">
+            </form>
+        </div>
+        <div>
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="seq-no header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Sr. No.
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <!-- <th class="branch header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Excel Sr. No.
+
+                                </div>
+
+                            </div>
+                        </th> -->
+                        <th class="transactionDate header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Company Name
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Website Url
+
+                                </div>
+
+                            </div>
+                        </th>
+
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Phone No.
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Email
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Address
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Veiw
+
+                                </div>
+
+                            </div>
+                        </th> 
+                        <!-- <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Zaubi Website
+
+                                </div>
+
+                            </div>
+                        </th> -->
+                       <!--  <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Zaubi Phone_no
+
+                                </div>
+
+                            </div>
+                        </th>
+                        <th class="transactionAmt header">
+                            <div class="table-head-inner">
+                                <div class="table-heading">
+                                    Zaubi Email
+
+                                </div>
+
+                            </div>
+                        </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let company of companyDetailsList">
+
+                        <td>
+                            <div class="data-height upper-text">{{company.SLNO}}</div>
+                        </td>
+
+
+                        <!-- <td>
+                            <div class="data-height upper-text">{{ company.EXCEL_SR_NO}}</div>
+                        </td> -->
+
+
+                        <td>
+                            <div class="data-height upper-text">{{ company.COMPANY_NAME}}</div>
+                        </td>
+
+                        <td>
+                                <div class="data-height upper-text">{{ company.WEBSITE_URL}}</div>
+                        </td>
+
+                        <td>
+                                <div class="data-height upper-text">{{ getFirstPhoneNumber(company.PHONE_NO) }}</div>
+                        </td>
+
+                        <td>
+
+                            <div class="data-height upper-text">{{ getFirstEmail( company.EMAIL) }}</div>
+                        </td>
+
+                        <td>
+
+                                <div class="data-height upper-text">{{ company.ADDRESS}}</div>
+
+                        </td>
+                        <td>
+                            <button class="btn btn-modify" title="view data"
+                                (click)="openModal1(company.COMPANY_NAME, company.WEBSITE_URL, company.PHONE_NO, company.EMAIL, company.ZAUB_URL, company.ZAUB_ADDRESS, company.ZAUB_EMAIL, company.ZAUB_DIRECTOR_DETAILS )" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">i</button>
+                        </td>
+                        
+                        <!-- <div>
+                            <button type=" button" (click)="get_zaubData(company.COMPANY_NAME )">Zaub Data</button>
+                        </div> -->
+
+
+
+
+
+
+                        <!-- <td>
+                            <div class="data-height upper-text">{{company.ZAUB_URL}}</div>
+
+                        </td> -->
+                        <!-- <td>
+                            <button class="btn btn-modify" title="Show Zaub Phone No."
+                                (click)="openModal(company.ZAUB_PHONE_NO, 'Zaub Phone No.')" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">i</button>
+
+                        </td>
+                        <td>
+                            <div class="data-height upper-text">{{company.ZAUB_EMAIL}}</div>
+                        </td> -->
+                    </tr>
+                    <input type="hidden" id="no_del_count" value="1" />
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row align-items-center mt-1 mb-1">
+            <div class="col-md-6  text-start">
+                <div class="row page-count">
+
+                    <div class="col-md-3">
+                        <label id="counttableid"></label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-end">
+                <button type="button" class="form-btn active-btn mt-0 mb-0" (click)="BackToDashBoard()"><i
+                        class="fas fa-backward me-1"></i>
+                    Back</button>
+                <button type="button" class="form-btn active-btn mt-0 mb-0" (click)="pagiBack()"><i
+                        class="fas fa-backward me-1"></i>
+                    Previous</button>
+                <button type="button" class="form-btn active-btn mt-0 mb-0 me-1" (click)="pagiForward()"> Next
+                    <i class="fas fa-forward ms-1"></i></button>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- modal start -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" >
+                    <h5 class="modal-title dark-title" id="exampleModalLabel">Company Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Company Name:</strong> {{company_name}}</p>
+                    <p><strong>Website URL:</strong> {{websiteUrl}}</p>
+                    <p><strong>Phone No:</strong> {{phone_no}}</p>
+                    <p><strong>Email:</strong> {{email}}</p>
+                    <p><strong>Zauba Url:</strong> {{zaub_url}}</p>
+                    <p><strong>Zauba Address:</strong> {{zaub_address}}</p>
+                    <p><strong>Zauba Email:</strong> {{zaub_email}}</p>
+                    <p><strong>Zauba Directore Details:</strong> {{zaub_director_details}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="zaubaModal" tabindex="-1" aria-labelledby="zaubaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title dark-title" id="zaubaModalLabel">Company Details</h5>
+              <button type="button" class="btn-close" (click)="closeZaubaModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Company Name:</strong> {{company_name}}</p>
+              <p><strong>Website URL:</strong> {{websiteUrl}}</p>
+              <p><strong>Address:</strong> {{address}}</p>
+              <p><strong>Email:</strong> {{email}}</p>
+              <button (click)="save_zaubData()">Save</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    <!-- modal end -->

@@ -1,0 +1,66 @@
+<app-header></app-header>
+<app-sidebar (setSideBarEvent)="setSideBar($event)"></app-sidebar>
+
+ 
+   <div class="upload-form">
+    <form [formGroup]="singleForm" (ngSubmit)="searchCompanyName()">
+      <div class="form-group horizontal-form">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" formControlName="companyName" />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" class="btn btn-primary" (click)="copyCompanyDetails()">Copy</button>
+        <button type = "button" class = " btn btn-primary" (click)="save()">Save</button>
+        <button type = "button" class = " btn btn-primary" (click)="download_excel()">Download</button>
+      </div> 
+
+      <!-- <div *ngIf="loading" class="loader">
+        Loading...
+      </div> -->
+
+      <div *ngIf="loading" class="loading-indicator">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        <p>Work in Progress...</p>
+    </div>
+      
+      <div *ngIf="companyResults.length > 0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Sr.No.</th>
+              <th>Company Name</th>
+              <th>Company Website</th>
+              <th>Official Website</th>
+              <th>Company Emails</th>
+              <th>Company Phone No.</th>
+              <th>Zauba Website</th>
+              <th>Zauba Email</th>
+              <th>Zaub Address</th>
+              <th>Zaub Director Details</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of companyResults; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ result.companyName }}</td>
+              <td [ngClass]="{ 'error': result.error }">{{ result.website }}</td>
+              <td>{{ result.officialWebsite }}</td>
+              <td>{{ result.emails }}</td>
+              <td>{{ result.phones }}</td>
+              <td>{{ result.zaub_website }}</td>
+              <td>{{ result.zaub_email }}</td>
+              <td>{{ result.zaub_address }}</td>
+              <td>{{ result.zaub_director_details }}</td>   
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div *ngIf="processCompleted">
+        <p>Process completed.</p>
+      </div>
+ 
+    </form>
+  </div> 
+
+ 
