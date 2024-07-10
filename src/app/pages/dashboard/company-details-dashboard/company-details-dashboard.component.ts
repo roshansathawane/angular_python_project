@@ -128,7 +128,9 @@ export class CompanyDetailsDashboardComponent {
     }
   }
   pagiForward() {
+    console.log('inside pagifarwoard method..........')
     if (this.endIndex < this.countrows) {
+      console.log('111111111111111')
       this.startindex = this.startindex + this.totalRows;
       this.endIndex = this.endIndex + this.totalRows;
       console.log("start index : " + this.startindex);
@@ -230,7 +232,7 @@ export class CompanyDetailsDashboardComponent {
       this.apiResponse = response;
       this.getAopcompanyDashboardData(filterTranData, this.companyTokenNo);
       if(this.apiResponse.status === 200 && this.apiResponse.result > 0){
-      
+      this.countrows= this.apiResponse.result
         // this.getAopcompanyDashboardData(filterTranData, this.companyTokenNo);
 
       const countLabelId = document.getElementById('counttableid') as HTMLButtonElement;

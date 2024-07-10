@@ -471,7 +471,7 @@ update_IncompExcelList() {
   onProcessButtonClick(company: any): void {
     this.processCompleted = true;
     if (company.FLAG === 'N') {
-      this.success_error_Modal.openErrorModal('Process is not Completed')
+      this.success_error_Modal.openErrorModal('Process Is Not Completed')
     } else {
       this.router.navigate(['/companyDetailDash', company.TOKEN_NO]);
     }

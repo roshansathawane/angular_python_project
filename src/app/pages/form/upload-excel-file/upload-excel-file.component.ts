@@ -113,8 +113,15 @@ export class UploadExcelFileComponent {
             // this.send_TokenNo(this.token)
             this.loading = false
             if(this.apiResponse && this.apiResponse.status === 200){
-              this.success_error_Modal.openSuccessModal('File Upload Successfully.' + '\n ' +  "Token: " + this.token + '\n '+ 'Do You want to process start?', () => this.showSuggestionBox= true) ;
-             
+              // this.success_error_Modal.openSuccessModal('File Upload Successfully.' + '\n ' +  "Token: " + this.token + '\n '+ 'Do You want to process start?', () => this.showSuggestionBox= true) ;
+              this.success_error_Modal.openSuccessModal(
+                String.raw`File Upload Successfully.
+                Token: ${this.token}.
+                Do You want to start processing?`,
+                () => { 
+                  this.showSuggestionBox = true; 
+                }
+              );
           
               // this.success_error_Modal.openSuccessModal("Token: " + this.token + ' \n' + "Process Start?", () => this.send_TokenNo(this.token));           
             }else{
@@ -195,7 +202,7 @@ export class UploadExcelFileComponent {
 
 
 
-  // send_TokenNo(token: number): void {
+
     send_TokenNo(): void {
 
     this.selectedDetails=[];
@@ -239,127 +246,6 @@ export class UploadExcelFileComponent {
 
 
 
-// ---------------------------------------------------------------********************----------------------------
-
-
-
-
- 
-
-  // private processCompanyNames(companyNames: string[], index: number = 0) {
-  //   if (index >= companyNames.length) {
-  //     this.loading = false;
-  //     this.processCompleted = true;
-  //     this.success_error_Modal.openSuccessModal('Process completed', () => {
-  //       this.companyResults = [];
-  //     });
-
-  //     return;
-  //   }
-
-  
-  // const companyName = companyNames[index];
-
-  //   if (this.processedCompanyNames.has(companyName)) {
-  //     this.success_error_Modal.openSuccessModal(
-  //       `${companyName} has already been processed.`,
-  //       () => this.processCompanyNames(companyNames, index + 1) 
-  //     );
-  //     return;
-  //   }  
-  
-
-  //   this.excelSheetService.searchexcelFile({ companyName, token: this.token}).subscribe(
-  //     response => {
-       
-  //       const responseObject = response;   
-  //       console.log('responseObject---------'+responseObject)
-  //       console.log('responseObject---------'+JSON.stringify(responseObject))
-  //       if (responseObject && responseObject.status === 200) {
-  //         console.log(`Processing company: ${companyNames[index]}`);
-  //         const result: any = { companyNo: this.processedCompanies + 1, companyName: companyName, website: '', official_website: '', emails: '', phones: '', completed: false };
-  
-  //         if (responseObject.PlaywrightResults && responseObject.PlaywrightResults.length > 0) {
-  //           result.website = responseObject.PlaywrightResults.join(',\n');
-  //           result.official_website = responseObject.PlaywrightResults[0];
-  //         } else {
-  //           console.log('No website found from PlaywrightResults');
-  //         }
-  
-  //         if (responseObject.ScrapyResults) {
-  //           const scrapyData = responseObject.ScrapyResults;
-  
-  //           const emailsMatch = scrapyData.match(/final_emails------------\[([^[]+)\]/);
-  //           if (emailsMatch && emailsMatch.length > 1) {
-  //             const emailsData = emailsMatch[1];
-  //             result.emails = emailsData
-  //               .match(/'([^']+)'/g)
-  //               .map((email: string) => email.replace(/'/g, ''))
-  //               .join(',\n');
-  //             console.log('Final Emails:-----------', result.emails);
-  //           } else {
-  //             console.log('No final emails found');
-  //           }
-  
-  //           const phonesMatch = scrapyData.match(/final_phones------------\[([^[]+)\]/);
-  //           if (phonesMatch && phonesMatch.length > 1) {
-  //             const phonesData = phonesMatch[1];
-  //             result.phones = phonesData
-  //               .match(/'([^']+)'/g)
-  //               .map((phone: string) => phone.replace(/'/g, ''))
-  //               .join(',\n');
-  //             console.log('Final Phones:----------------', result.phones);
-  //           } else {
-  //             console.log('No final phones found');
-  //           }
-  //         }
-  //         result.completed = true;
-  //         this.companyResults.push(result);
-  //         this.processedCompanies++;
-  //         this.processedCompanyNames.add(companyName);
-  //         this.processCompanyNames(companyNames, index + 1); 
-  //       } else {
-          
-  //         this.loading = true;
-  //         this.errorMessage = 'Website not found';
-  //         this.companyResults.push({
-  //           companyNo: this.processedCompanies + 1,
-  //           companyName: companyName,
-  //           website: 'Website not found',
-  //           official_website: '',
-  //           emails: '',
-  //           phones: '',
-  //           completed: true,
-  //           error: true
-  //         });
-  //         this.processedCompanies++;
-  //         this.processedCompanyNames.add(companyName);
-  //         this.processCompanyNames(companyNames, index + 1); 
-  //       }
-  //     },
-  //     error => {
-  //       this.loading = true;
-  //       this.errorMessage = 'Error searching company ' + companyName;
-  //       console.error('Error searching company', companyName, ':', error);
-
-  //       this.companyResults.push({
-  //         companyNo: this.processedCompanies + 1,
-  //         companyName: companyName,
-  //         website: 'Error searching company',
-  //         official_website: '',
-  //         emails: '',
-  //         phones: '',
-  //         completed: true,
-  //         error: true
-  //       });
-  //       this.processedCompanies++;
-  //       this.processedCompanyNames.add(companyName);
-  //       this.processCompanyNames(companyNames, index + 1); 
-  //     }
-  //   );
-  // }
-
-
 
   private processCompanyNames(companyNames: string[], flags:string[], index: number = 0) {
     if (index >= companyNames.length) {
@@ -393,10 +279,17 @@ export class UploadExcelFileComponent {
        
         const responseObject = response;   
         if (responseObject && responseObject.status === 200) {
-          const zaub_website = JSON.stringify(responseObject.zaub_website)
-          const zaub_email = JSON.stringify(responseObject.zaub_email)
-          const zaub_address = JSON.stringify(responseObject.zaub_address)
-          const zaub_director_details = JSON.stringify(responseObject.zaub_director_details)
+
+          // const zaub_website = JSON.stringify(responseObject.zaub_website) 
+          // const zaub_email = JSON.stringify(responseObject.zaub_email)
+          // const zaub_address = JSON.stringify(responseObject.zaub_address)
+          // const zaub_director_details = JSON.stringify(responseObject.zaub_director_details)
+
+          const zaub_website = responseObject.zaub_website ? JSON.stringify(responseObject.zaub_website) : '';
+          const zaub_email = responseObject.zaub_email ? JSON.stringify(responseObject.zaub_email) : '';
+          const zaub_address = responseObject.zaub_address ? JSON.stringify(responseObject.zaub_address) : '';
+          const zaub_director_details = responseObject.zaub_director_details ? JSON.stringify(responseObject.zaub_director_details) : '';
+  
 
           console.log(`Processing company: ${companyNames[index]}`);
           const result: any = { companyNo: this.processedCompanies + 1, companyName: companyName, website: '', official_website: '', emails: '', phones: '', completed: false, zaub_website: zaub_website, zaub_email: zaub_email, zaub_address: zaub_address, zaub_director_details: zaub_director_details, total_count: this.total_count   };
@@ -507,12 +400,6 @@ export class UploadExcelFileComponent {
       return;
     }
   
-    // const companyIndex = this.processedCompanies - 1; 
-    // const companyName = this.companyResults[companyIndex]?.companyName;
-    // const website = this.companyResults[companyIndex]?.website;
-    // const emails = this.companyResults[companyIndex]?.emails;
-    // const phones = this.companyResults[companyIndex]?.phones; 
-    // const detailsToCopy = `Company Name: ${companyName}\nWebsite: ${website}\nEmail: ${emails}\nPhone Number: ${phones}`;
 
     let detailsToCopy = '';
     this.companyResults.forEach((result, index) => {
